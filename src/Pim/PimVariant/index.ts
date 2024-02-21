@@ -3,14 +3,14 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import PimVariantRoute from './PimVariantRoute';
+import PimVariantRoute from './Route';
 import axios from 'axios';
-import { VariantItemModel } from './PimVariantModel';
+import { VariantItemModel, VariantModel } from './Model';
 
 /**
  * API Service - Product
  */
-class AesirxPimVariantApiService {
+class VariantApiService {
   route: any = null;
 
   constructor() {
@@ -20,7 +20,6 @@ class AesirxPimVariantApiService {
   create = async (data: any) => {
     try {
       const result = await this.route.create(data);
-
       if (result) {
         return result;
       }
@@ -45,14 +44,50 @@ class AesirxPimVariantApiService {
       } else throw error;
     }
   };
-
-  getVariantDetail = async (id = 0) => {
+  delete = async (data: any) => {
     try {
-      const data = await this.route.getVariantDetail(id);
-
-      if (data) {
-        return new VariantItemModel(data).toJSON();
+      const response = await this.route.delete(data);
+      if (response) {
+        return response;
+      } else {
+        return false;
       }
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
+
+  getList = async (filter: any) => {
+    try {
+      const data = await this.route.getList(filter);
+
+      const roleItems = new VariantModel(data);
+
+      return {
+        listItems: roleItems.getItems(),
+        pagination: roleItems.getPagination(),
+      };
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
+
+  getDetail = async (id = 0) => {
+    try {
+      const data = await this.route.getDetail(id);
+      let results = null;
+      if (data) {
+        results = new VariantItemModel(data);
+      }
+      if (results) {
+        results = results.toJSON();
+      }
+
+      return results;
     } catch (error) {
       if (axios.isCancel(error)) {
         return { message: 'isCancel' };
@@ -61,4 +96,4 @@ class AesirxPimVariantApiService {
   };
 }
 
-export { AesirxPimVariantApiService };
+export { VariantApiService };

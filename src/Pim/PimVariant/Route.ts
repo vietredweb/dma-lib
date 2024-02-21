@@ -5,9 +5,21 @@
 
 import AesirXApiInstance from '../../Gateway/Instance';
 import BaseRoute from '../../Abstract/BaseRoute';
+import Utils from '../../Utils/Utils';
 
 class PimVariantRoute extends BaseRoute {
   option = 'reditem-item_variant_53';
+
+  getList = (filters: any) => {
+    const buildFilters = Utils.createFilters(filters);
+
+    return AesirXApiInstance.get(
+      this.createRequestURL({
+        option: this.option,
+        ...buildFilters,
+      })
+    );
+  };
 
   create = (data: any) => {
     return AesirXApiInstance.post(
@@ -32,11 +44,23 @@ class PimVariantRoute extends BaseRoute {
     );
   };
 
-  getVariantDetail = (id = 0) => {
+  delete = (ids: any) => {
+    return AesirXApiInstance.delete(
+      this.createRequestURL({
+        option: this.option,
+      }),
+      {
+        data: { ids: Array.isArray(ids) ? ids : [ids] },
+      }
+    );
+  };
+
+  getDetail = (id = 0, dataFilter = {}) => {
     return AesirXApiInstance.get(
       this.createRequestURL({
         option: this.option,
         id: id,
+        ...dataFilter,
       })
     );
   };
