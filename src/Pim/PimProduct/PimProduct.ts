@@ -135,6 +135,21 @@ class AesirxPimProductApiService {
       } else throw error;
     }
   };
+
+  importProducts = async (data: any) => {
+    try {
+      const result = await this.route.importProducts(data);
+
+      if (result) {
+        return result;
+      }
+      return { message: 'Something have problem' };
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
 }
 
 export { AesirxPimProductApiService };

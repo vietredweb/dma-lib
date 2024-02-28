@@ -49,6 +49,7 @@ const PIM_VARIANT_DETAIL_FIELD_KEY: any = {
   CREATED_TIME: 'created_time',
   PUBLISH_UP: 'publish_up',
   MODIFIED_TIME: 'modified_time',
+  PRODUCT_NAME: 'product_name',
 };
 
 const PIM_PROPERTY_DETAIL_FIELD_KEY: any = {

@@ -24,6 +24,7 @@ class VariantItemModel extends BaseItemModel {
   created_time = null;
   custom_fields: any = null;
   property_values: any = null;
+  product_name: any = null;
 
   constructor(entity: any) {
     super(entity);
@@ -39,6 +40,7 @@ class VariantItemModel extends BaseItemModel {
       this.modified_time = entity[PIM_VARIANT_DETAIL_FIELD_KEY.MODIFIED_TIME] ?? '';
       this.custom_fields = entity[PIM_VARIANT_DETAIL_FIELD_KEY.CUSTOM_FIELDS] ?? '';
       this.property_values = entity[PIM_VARIANT_DETAIL_FIELD_KEY.PROPERTY_VALUES] ?? '';
+      this.product_name = entity[PIM_VARIANT_DETAIL_FIELD_KEY.PRODUCT_NAME] ?? '';
     }
   }
 
@@ -69,6 +71,7 @@ class VariantItemModel extends BaseItemModel {
       [PIM_VARIANT_DETAIL_FIELD_KEY.MODIFIED_TIME]: this.modified_time,
       [PIM_VARIANT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: this.custom_fields,
       [PIM_VARIANT_DETAIL_FIELD_KEY.PROPERTY_VALUES]: this.property_values,
+      [PIM_VARIANT_DETAIL_FIELD_KEY.PRODUCT_NAME]: this.product_name,
     };
   };
 

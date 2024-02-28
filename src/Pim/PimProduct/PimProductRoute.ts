@@ -108,6 +108,23 @@ class PimProductRoute extends BaseRoute {
       }
     );
   };
+
+  importProducts = (data: any) => {
+    let formData = new FormData();
+    formData.append('upload_file', data ?? null);
+    return AesirXApiInstance.post(
+      this.createRequestURL({
+        option: 'import_csv',
+        task: 'import',
+      }),
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
+  };
 }
 
 export default PimProductRoute;
